@@ -13,14 +13,74 @@ const client = new Discord.Client();
 client.on('ready', () => {   
     console.log(`Logged in as ${client.user.tag}`); 
 });
-client.on('message', msg => {  
+client.on('message', async function(msg){  
+    let removed = false;
     if (msg.attachments.array().length > 0){
-        msg.channel.send(`message attachments: ${msg.attachments.array().length}`);
+        removed = await processAttachments(msg);
     }
-    if (msg.embeds.length > 0){
-        msg.channel.send(`message embeds: ${msg.embeds.length}`);
-        Scanner.scanURL(msg.embeds[0].url);
+    if (!removed && msg.embeds.length > 0){
+        processEmbeds(msg);
     }
 });
+
+/**
+ * Process a message's attachments and delete the message if it contains QR codes
+ * @param {Discord.Message} msg the message object to check
+ */
+async function processAttachments(msg){
+    for (let attachment of msg.attachments.array()){
+        let res = await Scanner.scanURL(attachment.url);
+        if (res){
+            msg.channel.send(deleteMsg(msg));
+            return true;
+        }
+    }
+}
+
+/**
+ * Process a message's embeds and delete the message if it contains QR codes
+ * @param {Discord.Message} msg the message object to check
+ */
+async function processEmbeds(msg){
+    for (let embed of msg.embeds){
+        let res = await Scanner.scanURL(embed.url);
+        if (res){
+            msg.channel.send(deleteMsg(msg));
+        }
+    }
+}
+
+/**
+ * Deletes an offending message and sends a message stating that it worked
+ * @param {Discord.Message} message 
+ */
+function deleteMsg(message){
+    //play a mad-libs game to assemble the response
+    const verbs = ["sneak","pass","smuggle","throw","drive"];
+    const adjectives = ["fastest","quickest","most skillful"];
+    const adjectives2 = ["type","stuff","garbage"];
+    const places = ["land","world","country","sea","server","internet"];
+    const verbs2 = ["spott","destroy","snip","sniff","roast","eat"]
+    const greetings = ["Hey", "Oy", "Whoa", "Stop"];
+    const affirmations = ["like","enjoy","allow","take","upvote"]
+    const directions = ["past","through","under"];
+
+    const responses = [
+        `${rand(greetings)} <@${message.author.id}>! That's a QR Code! We don't ${rand(affirmations)} that ${rand(adjectives2)} around here!`,
+        `<@${message.author.id}> thought they could ${rand(verbs)} QR codes ${rand(directions)} me, but no dice.`,
+        `<@${message.author.id}>, I'm the ${rand(adjectives)} QR code ${rand(verbs2)}er in the ${rand(places)}, and I just ${rand(verbs2)}ed yours.`,
+    ];
+    message.delete().catch(() => {message.channel.send("(Hey mods! I need perms to delete that!)")});
+    return responses[Math.floor(Math.random()*responses.length)];
+}
+
+
+/**
+ * @returns Returns a random element in an array
+ * @param {[]} array array to use
+ */
+function rand(array){
+    return array[Math.floor(Math.random()*array.length)];
+}
 
 client.login(process.env.TOKEN).then(delete process.env.TOKEN);
