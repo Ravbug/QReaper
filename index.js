@@ -12,11 +12,30 @@ const Discord = require('discord.js');
 const client = new Discord.Client();  
 client.on('ready', () => {   
     console.log(`Logged in as ${client.user.tag}`); 
+    client.user.setActivity('for QR Codes | tag me!', { type: 'WATCHING' })
 });
 client.on('message', async function(msg){  
-    //don't scan dms
-    if (msg.channel.type == "dm"){
+    //don't scan dms or self messages
+    if (msg.channel.type == "dm" || msg.author.id == client.user.id){
         return;
+    }
+
+    //if tagged, present about info
+    //this does not stop the message from being scanned
+    if (msg.content.includes(client.user.id)){
+        const embed = new Discord.RichEmbed()
+        .setTitle(`About ${client.user.username}`)
+        .setAuthor(`${client.user.username} | Ravbug Software`, client.user.avatarURL)
+        .setColor(msg.member.displayHexColor)
+        .setDescription("I find QR codes in messages and delete them! You must give me the __Manage Messages__ and __Add Reactions__ permissions so that I can do my job most effectively.")
+        .setFooter("Created by Ravbug, released open source on GitHub.", "https://avatars2.githubusercontent.com/u/22283943")
+        .setThumbnail(client.user.avatarURL)
+        .setTimestamp()
+        .addField("Hey! You missed one!", "If I miss a QR Code, you can add any reaction to that message and I will check it again. If I believe the message is clean, I will react with ✅")
+        .addField("Invite me!", "Use [my invite link](https://discordapp.com/oauth2/authorize?client_id=666309507105816586&scope=bot&permissions=10304) to add me to your server! Please give me all of the perms listed on the invite link page.")
+        .addField("My Website", "Visit [My Website](https://www.ravbug.com/qreaper) for information, including instructions for self-hosting me.");
+        
+        msg.channel.send({embed});
     }
 
     let deleted = await processMessage(msg);
