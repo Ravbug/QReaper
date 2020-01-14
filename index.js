@@ -14,6 +14,11 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`); 
 });
 client.on('message', async function(msg){  
+    //don't scan dms
+    if (msg.channel.type == "dm"){
+        return;
+    }
+
     let deleted = await processMessage(msg);
     //if not deleted, observe it for reactions to allow uers
     //to have a message manually scanned
@@ -26,7 +31,7 @@ client.on('message', async function(msg){
             let deleted = await processMessage(msg);
             //if message is clean
             if (!deleted){
-                msg.react("✅");
+                msg.react("✅").catch(()=>{});
             }
         });
     }
@@ -51,7 +56,7 @@ async function processAttachments(msg){
     for (let attachment of msg.attachments.array()){
         let res = await Scanner.scanURL(attachment.url);
         if (res){
-            msg.channel.send(deleteMsg(msg));
+            msg.channel.send(deleteMsg(msg)).catch(()=>{});
             return true;
         }
     }
@@ -65,7 +70,7 @@ async function processEmbeds(msg){
     for (let embed of msg.embeds){
         let res = await Scanner.scanURL(embed.url);
         if (res){
-            msg.channel.send(deleteMsg(msg));
+            msg.channel.send(deleteMsg(msg)).catch(()=>{});
             return true;
         }
     }
@@ -91,7 +96,7 @@ function deleteMsg(message){
         `<@${message.author.id}> thought they could ${rand(verbs)} QR codes ${rand(directions)} me, but no dice.`,
         `<@${message.author.id}>, I'm the ${rand(adjectives)} QR code ${rand(verbs2)}er in the ${rand(places)}, and I just ${rand(verbs2)}ed yours.`,
     ];
-    message.delete().catch(() => {message.channel.send("(Hey mods! I need perms to delete that!)")});
+    message.delete().catch(() => {message.channel.send("(Hey mods! I need perms to delete that!)").catch(()=>{})});
     return responses[Math.floor(Math.random()*responses.length)];
 }
 

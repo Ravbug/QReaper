@@ -41,7 +41,8 @@ async function scanURL(url){
         //read it with Jimp
         Jimp.read(buffer,async function(err,img){
             if (err){
-                console.error(err);
+                //silent catch errors
+                //console.error(err);
             }
             else{
                 //try the tests
