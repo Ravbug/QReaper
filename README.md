@@ -29,4 +29,4 @@ They assume you have created an Application and registered a Bot account with Di
 }
 ```
 5. Open a new terminal window at the root folder and run `npm install`
-6. Run `node index.js` to start the bot. 
+6. Run `node index.js` to start the bot. It will print to the console the port it's running on. Visit `localhost:port-here` to view the bot's webpage.
