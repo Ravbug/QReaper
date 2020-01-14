@@ -7,6 +7,7 @@ if (!process.env.hasOwnProperty("TOKEN")){
 
 const Scanner = require('./scanner.js');
 const Discord = require('discord.js'); 
+const Server = require('./server.js')
 
 //configure Discord
 const client = new Discord.Client();  

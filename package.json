@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "express": "^4.17.1",
     "jimp": "^0.9.3",
     "jsqr": "^1.2.0",
     "qrcode-reader": "^1.0.4",
