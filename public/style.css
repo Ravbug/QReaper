@@ -1,3 +1,53 @@
-h1{
-    color:red;
+/* styles */
+/* called by your view template */
+
+/* You might want to try something fancier: */
+/* less: http://lesscss.org/ */
+
+* {
+  box-sizing: border-box;
 }
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  color:#FFFFFF;
+  background-color:#36393F;
+}
+
+article{
+   margin: 10px;
+}
+
+th,table{
+ background-color:#202225; 
+ border-radius:5px;
+}
+
+td{
+  background-color:#34363C;
+  color:#ACADAF;
+  font-size:12px
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+footer {
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 1px solid lightgrey;
+}
+
+ a {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+a:hover{
+  color: #CCCCCC;
+}
+
+.nicejob {
+  text-decoration: line-through;
+}
+

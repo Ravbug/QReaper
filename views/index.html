@@ -1,13 +1,44 @@
-<head>
+<!DOCTYPE html>
+<html>
+  <head>
     <title>QReaper</title>
     <meta name="description" content="A QR-Code destroying Discord bot!">
-    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <link id="favicon" rel="icon" href="https://cdn.discordapp.com/avatars/666309507105816586/9e1e20e18619535cbf4f87f454957d5b.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="/style.css">
-    
-    <script src="/client.js" defer></script>
   </head>
-  <h1>Test Page</h1>
+  <table style="width:100%">
+    <!-- The header -->
+      <tr>
+        <th><img style="width:75px;height:75px;margin:15px" src="https://cdn.discordapp.com/avatars/666309507105816586/9e1e20e18619535cbf4f87f454957d5b.png?size=2048"></img>
+      </th>
+        <th style="width:100%"><h1 style="text-align:left">QReaper</h1>
+          <table>
+           <!-- The menus -->
+          <tr>
+            <th><a href="/">Home</a></th>
+            <th><a href="https://discordapp.com/oauth2/authorize?client_id=666309507105816586&scope=bot&permissions=10304">Invite!</a></th>
+          </tr>
+        </table>
+        </th>
+      </tr>
+    </table>
+  <article>
+    
+    <br>
+    Recently, Discord added the ability to scan a QR code with their mobile app to log in. It's convenient, but it has a massive flaw. Attackers have been gaining access to other people's accounts simply by sending them a Direct Message containing a login QR code but accompanying it with a message like "Scan this QR code to redeem your Nitro gift!"
+    To combat these scams, I created this Discord Bot which scans messages for QR codes and deletes any messages containing them.
+    <br><br>
+    This bot has no settings and begins working as soon as it has been added to a server. It scans all attachments and embedded images. If it fails to scan a message, you can make it re-scan the message by adding any reaction to the message. 
+    To get this information simply tag the bot in any channel that it has post-messages access to.
+
+  </article>
+<footer>
+  Created by <a href="https://www.ravbug.com/" target="_blank">Ravbug</a>
+  <br>
+  Click <a href="https://discordapp.com/oauth2/authorize?client_id=666309507105816586&scope=bot&permissions=10304">this link</a> to add QReaper to your server
+</footer>
+</html>
+
