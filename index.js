@@ -23,17 +23,31 @@ client.on('message', async function(msg){
     //if tagged, present about info
     //this does not stop the message from being scanned
     if (msg.content.includes(client.user.id)){
+        let uptimestr;
+        {
+            let diff = client.uptime;
+            let s = Math.floor(diff / 1000);
+            let  m = Math.floor(s / 60);
+            s = s % 60;
+            let h = Math.floor(m / 60);
+            m = m % 60;
+            let d = Math.floor(h / 24);
+            h = h % 24;
+            uptimestr = `${d} days ${h} hours ${m} minutes ${s} seconds`;
+        }
+
         const embed = new Discord.RichEmbed()
         .setTitle(`About ${client.user.username}`)
         .setAuthor(`${client.user.username} | Ravbug Software`, client.user.avatarURL)
         .setColor(msg.member.displayHexColor)
         .setDescription("I find QR codes in messages and delete them! You must give me the __Manage Messages__ and __Add Reactions__ permissions so that I can do my job most effectively.")
-        .setFooter("Created by Ravbug, released open source on GitHub.", "https://avatars2.githubusercontent.com/u/22283943")
+        .setFooter("© Ravbug, released open source on GitHub.", "https://avatars2.githubusercontent.com/u/22283943")
         .setThumbnail(client.user.avatarURL)
         .setTimestamp()
         .addField("Hey! You missed one!", "If I miss a QR Code, you can add any reaction to that message and I will check it again. If I believe the message is clean, I will react with ✅")
         .addField("Invite me!", "Use [my invite link](https://discordapp.com/oauth2/authorize?client_id=666309507105816586&scope=bot&permissions=10304) to add me to your server! Please give me all of the perms listed on the invite link page.")
-        .addField("My Website", "Visit [My Website](https://www.ravbug.com/qreaper) for information, including instructions for self-hosting me.");
+        .addField("My Website", "Visit [My Website](https://www.ravbug.com/qreaper) for information, including instructions for self-hosting me.")
+        .addField("Statistics", `Uptime ${uptimestr}\nProtecting ${client.guilds.size} servers\nPing: ${client.ping}ms`);
         
         msg.channel.send({embed});
     }
