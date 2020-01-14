@@ -47,7 +47,7 @@ client.on('message', async function(msg){
         .setTimestamp()
         .addField("Hey! You missed one!", "If I miss a QR Code, you can add any reaction to that message and I will check it again. If I believe the message is clean, I will react with ✅")
         .addField("Invite me!", `Use [my invite link](https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=10304) to add me to your server! Please give me all of the perms listed on the invite link page.`)
-        .addField("My Website", "Visit [My Website](https://www.ravbug.com/qreaper) for information, including instructions for self-hosting me.")
+        .addField("My Website", "Visit [My Website](https://qreaper.glitch.me) for information, including instructions for self-hosting me.")
         .addField("Statistics", `Uptime ${uptimestr}\nProtecting ${client.guilds.size} servers\nPing: ${client.ping}ms`);
         
         msg.channel.send({embed});
