@@ -2,7 +2,7 @@
 
 Recently, Discord added the ability to scan a QR code with their mobile app to log in. 
 It's convenient, but it has a massive flaw. Attackers have been gaining access to other people's accounts simply by
-sending them a Direct Message containing a login QR code but accompanying it with a message like "Scan this QR code to
+sending a login QR code but accompanying it with a message like "Scan this QR code to
 redeem your Nitro gift!"
 
 To combat these scams, I created this Discord Bot which scans messages for QR codes and deletes any messages containing them.
