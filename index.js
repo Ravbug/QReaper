@@ -14,14 +14,34 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`); 
 });
 client.on('message', async function(msg){  
+    let deleted = await processMessage(msg);
+    //if not deleted, observe it for reactions to allow uers
+    //to have a message manually scanned
+    if (!deleted){
+        msg.awaitReactions((reaction, user) => {
+            //the reaction filter
+            //in this case accept all reactions
+            return true;
+        },{max:1,time:300000,errors:[]}).then(async function(collected){
+            let deleted = await processMessage(msg);
+            //if message is clean
+            if (!deleted){
+                msg.react("✅");
+            }
+        });
+    }
+});
+
+async function processMessage(msg){
     let removed = false;
     if (msg.attachments.array().length > 0){
         removed = await processAttachments(msg);
+        return true;
     }
     if (!removed && msg.embeds.length > 0){
-        processEmbeds(msg);
+        return await processEmbeds(msg);
     }
-});
+}
 
 /**
  * Process a message's attachments and delete the message if it contains QR codes
@@ -46,6 +66,7 @@ async function processEmbeds(msg){
         let res = await Scanner.scanURL(embed.url);
         if (res){
             msg.channel.send(deleteMsg(msg));
+            return true;
         }
     }
 }
@@ -56,8 +77,8 @@ async function processEmbeds(msg){
  */
 function deleteMsg(message){
     //play a mad-libs game to assemble the response
-    const verbs = ["sneak","pass","smuggle","throw","drive"];
-    const adjectives = ["fastest","quickest","most skillful"];
+    const verbs = ["sneak","pass","smuggle","throw","drive","slip"];
+    const adjectives = ["fastest","quickest","most skillful", "acclaimed"];
     const adjectives2 = ["type","stuff","garbage"];
     const places = ["land","world","country","sea","server","internet"];
     const verbs2 = ["spott","destroy","snip","sniff","roast","eat"]
