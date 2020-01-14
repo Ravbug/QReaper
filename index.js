@@ -64,7 +64,7 @@ client.on('message', async function(msg){
         },{max:1,time:300000,errors:[]}).then(async function(collected){
             let deleted = await processMessage(msg);
             //if message is clean
-            if (!deleted){
+            if (!deleted && (msg.attachments.array().length > 0 || msg.embeds.length > 0)){
                 msg.react("✅").catch(()=>{});
             }
         });
