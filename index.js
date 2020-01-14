@@ -62,7 +62,7 @@ function deleteMsg(message){
     const places = ["land","world","country","sea","server","internet"];
     const verbs2 = ["spott","destroy","snip","sniff","roast","eat"]
     const greetings = ["Hey", "Oy", "Whoa", "Stop"];
-    const affirmations = ["like","enjoy","allow","take","upvote"]
+    const affirmations = ["like","enjoy","allow","take","upvote","accept"]
     const directions = ["past","through","under"];
 
     const responses = [
