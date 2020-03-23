@@ -1,4 +1,5 @@
 # QReaper
+*Note: Discord has partially addressed the issue by adding a warning in the mobile app when you scan a QR code.*
 
 Recently, Discord added the ability to scan a QR code with their mobile app to log in. 
 It's convenient, but it has a massive flaw. Attackers have been gaining access to other people's accounts simply by
@@ -14,7 +15,7 @@ If it fails to scan a message, you can make it re-scan the message by adding any
 To get this information simply tag the bot in any channel that it has post-messages access to. 
 
 ## Invite to your server
-To invite the bot to your server, visit the bot's page here: [https://qreaper.glitch.me](https://qreaper.glitch.me)
+I have stopped hosting this discord bot. Follow the steps below to self-host.
 
 ## Self-hosting
 If you would like to host this bot yourself instead of using my hosted version, follow these instructions. 
